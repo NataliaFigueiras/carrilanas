@@ -8,7 +8,7 @@ require(SRC_DIR . 'Logger.php');
 require(SRC_DIR . 'Inicio.php');
 require(SRC_DIR . 'Rechazo.php');
 class Controller extends BasicController{
-	function __construct() {
+	function __construct() { 
 		parent::__construct();
 		$this->assign('opciones', array(
 			'Inicio'=>'inicio',
