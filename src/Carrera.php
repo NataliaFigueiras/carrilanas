@@ -11,7 +11,7 @@ class Carrera extends MasterTable{
 				'circuito', 
 				'distancia' 		
 		);
-		$this->level = 10;
+		$this->level = 0;
 		parent::__construct();
 	}
 	function dispatch($controller){
