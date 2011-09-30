@@ -3,6 +3,7 @@ require(LIB_DIR . 'BasicController.php');
 require(SRC_DIR . 'Carrera.php');
 require(SRC_DIR . 'Noticia.php');
 require(SRC_DIR . 'FacturaConAlumno.php');
+require(SRC_DIR . 'NoticiaConCarrera.php');
 require(SRC_DIR . 'Usuario.php');
 require(SRC_DIR . 'Logger.php');
 require(SRC_DIR . 'Inicio.php');
@@ -12,10 +13,10 @@ class Controller extends BasicController{
 		parent::__construct();
 		$this->assign('opciones', array(
 			'Inicio'=>'inicio',
-			'Alumnos'=>'alumno',
 			'Carrera'=>'carrera',
+			'Noticias'=>'noticiaConCarrera',
+			'Alumnos'=>'alumno',
 			'Facturas'=>'facturaConAlumno',
-			
 			'Usuarios'=>'usuario',
 			'Login'=>'login',
 			'Logout'=>'logout'
@@ -31,12 +32,19 @@ class Controller extends BasicController{
 			//decide cambiar o no de vista, segun permisos
 		}
 		switch($this->view){
-		case 'alumno':
-			$object = new Alumno;
-			break;
+		
 		case 'carrera':
 			$object = new Carrera;
-			break;	
+			break;
+		case 'noticia':
+			$object = new Noticia; 
+			break;
+		case 'noticiaconcarrera':
+			$object = new NoticiaConCarrera; 
+			break;
+		case 'alumno':
+			$object = new Alumno;
+			break;		
 		case 'factura':
 			$object = new Factura; 
 			break;
