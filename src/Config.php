@@ -2,7 +2,7 @@
 //Fichero de configuracion
 
 	$dbtype = 'mysql';
-	$dbname = 'carrilanas';
+	$dbname = 'carrilana';
 	$dbhost = 'localhost';
 	$dbuser = 'root';
 	$dbpass = '';
