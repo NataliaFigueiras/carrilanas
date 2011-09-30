@@ -1,20 +1,16 @@
 <?php
 require_once(LIB_DIR .'MasterTable.php');
-class FacturaConAlumno extends MasterTable{
+class noticiaconcarrera extends MasterTable{
 	function __construct() {
-		$this->table = 'facturaConAlumno';
-		$this->formTemplate = 'facturaConAlumnoForm.tpl';
-		$this->listTemplate = 'facturaConAlumnoList.tpl';
+		$this->table = 'noticiaconcarrera';
+		$this->formTemplate = 'noticiaConCarreraForm.tpl';
+		$this->listTemplate = 'noticiaConCarreraList.tpl';
 		$this->fields= array(
-				'importe'     , 
-				'concepto'    , 
+				'nombre'     , 
 				'fecha'       , 
-				'fecha_pago'  , 
-				'alumno_id'   , 
-				'nombre'      , 
-				'apellidos'   , 
-				'dni'         , 
-				'email'  
+				'titular'  , 
+				'texto' 
+				
 		);
 		parent::__construct();
 	}
@@ -22,20 +18,16 @@ class FacturaConAlumno extends MasterTable{
 	function isValidForm($formvars) {
 		$this->error = null;
 
-		if(strlen($formvars['importe']) == 0) {
-			$this->error = 'importe_empty';
+		if(strlen($formvars['titular']) == 0) {
+			$this->error = 'titular_empty';
 			return false; 
 		}
 
-		if(strlen($formvars['concepto']) == 0) {
-			$this->error = 'concepto_empty';
+		if(strlen($formvars['texto']) == 0) {
+			$this->error = 'texto_empty';
 			return false; 
 		}
-		if(strlen($formvars['fecha']) == 0) {
-			$this->error = 'fecha_empty';
-			return false; 
-		}
-
+	
 		return true;
 	}
 }
