@@ -7,22 +7,19 @@
 	</a>
 </td>
 <table border="0" >
-	<th bgcolor="#d1d1d1">id </th>
+	<th bgcolor="#d1d1d1">Carrera</th>
 	<th bgcolor="#d1d1d1">Fecha  </th>
-	<th bgcolor="#d1d1d1">Nombre</th>
 	<th bgcolor="#d1d1d1">Titular</th>
 	<th bgcolor="#d1d1d1">Noticia</th>
 	{foreach from=$records item="record"}
     <tr bgcolor="{cycle values="#dedede,#eeeeee" advance=true}">
-		<td>
-			{$record.id|escape}
-		</td>        
+	    <td>
+			{$record.nombre|escape}
+		</td>
 		<td>
 			{$record.fecha|escape}
 		</td>        
-		<td>
-			{$record.nombre|escape}
-		</td>        
+		        
 		<td>
 			{$record.titular|escape}
 		</td>        

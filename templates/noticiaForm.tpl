@@ -25,12 +25,7 @@
   >
   <br />
   Noticia:
-  <input 
-	  type="text" 
-	  name="noticia" 
-	  value="{$formVars.noticia|escape}" 
-  >
- 
+<textarea name="texto">{$formVars.texto|escape}</textarea>
   <br />
   <input type="submit" value="Submit">
   <input type="hidden" name="masterId" value="{$masterId}" />

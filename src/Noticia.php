@@ -9,7 +9,7 @@ class Noticia extends DetailTable{
 		$this->listTemplate = 'noticiaList.tpl';
 		$this->fields= array(
 				'titular'     , 
-				'noticia'     
+				'texto'     
 				
 		);
 		parent::__construct();
@@ -23,8 +23,8 @@ class Noticia extends DetailTable{
 			return false; 
 		}
 
-		if(strlen($formvars['noticia']) == 0) {
-			$this->error = 'noticia_empty';
+		if(strlen($formvars['texto']) == 0) {
+			$this->error = 'texto_empty';
 			return false; 
 		}
 		

@@ -9,7 +9,7 @@
 <table border="0" >
 	<th bgcolor="#d1d1d1">id</th>
 	<th bgcolor="#d1d1d1">Titular  </th>
-	<th bgcolor="#d1d1d1">Noticia</th>
+	<th bgcolor="#d1d1d1">Texto</th>
 	<th bgcolor="#d1d1d1">&nbsp;</th>
 	<th bgcolor="#d1d1d1">&nbsp;</th>
 	{foreach from=$records item="record"}
@@ -21,7 +21,7 @@
 			{$record.titular|escape}
 		</td>        
 		<td>
-			{$record.noticia|escape}
+			{$record.texto|escape}
 		</td>        
 	    <td><a href="{$SCRIPT_NAME}?action=edit&id={$record.id}&masterId={$masterId}"  >
 			<button>.</button></a>

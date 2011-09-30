@@ -39,7 +39,7 @@ class Controller extends BasicController{
 		case 'noticia':
 			$object = new Noticia; 
 			break;
-		case 'noticiaconcarrera':
+		case 'noticiaConCarrera':
 			$object = new NoticiaConCarrera; 
 			break;
 		case 'alumno':
