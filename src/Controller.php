@@ -1,6 +1,7 @@
 <?php
 require(LIB_DIR . 'BasicController.php');
 require(SRC_DIR . 'Alumno.php');
+require(SRC_DIR . 'Carrera.php');
 require(SRC_DIR . 'Factura.php');
 require(SRC_DIR . 'FacturaConAlumno.php');
 require(SRC_DIR . 'Usuario.php');
@@ -13,6 +14,7 @@ class Controller extends BasicController{
 		$this->assign('opciones', array(
 			'Inicio'=>'inicio',
 			'Alumnos'=>'alumno',
+			'Carrera'=>'carrera',
 			'Facturas'=>'facturaConAlumno',
 			'Usuarios'=>'usuario',
 			'Login'=>'login',
@@ -32,6 +34,9 @@ class Controller extends BasicController{
 		case 'alumno':
 			$object = new Alumno;
 			break;
+		case 'carrera':
+			$object = new Carrera;
+			break;	
 		case 'factura':
 			$object = new Factura; 
 			break;
