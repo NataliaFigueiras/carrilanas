@@ -1,6 +1,5 @@
 <?php
 require(LIB_DIR . 'BasicController.php');
-require(SRC_DIR . 'Alumno.php');
 require(SRC_DIR . 'Carrera.php');
 require(SRC_DIR . 'Factura.php');
 require(SRC_DIR . 'FacturaConAlumno.php');
