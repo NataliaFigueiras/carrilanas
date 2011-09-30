@@ -1,7 +1,7 @@
 <?php
 require(LIB_DIR . 'BasicController.php');
 require(SRC_DIR . 'Carrera.php');
-require(SRC_DIR . 'Factura.php');
+require(SRC_DIR . 'Noticia.php');
 require(SRC_DIR . 'FacturaConAlumno.php');
 require(SRC_DIR . 'Usuario.php');
 require(SRC_DIR . 'Logger.php');
@@ -15,6 +15,7 @@ class Controller extends BasicController{
 			'Alumnos'=>'alumno',
 			'Carrera'=>'carrera',
 			'Facturas'=>'facturaConAlumno',
+			
 			'Usuarios'=>'usuario',
 			'Login'=>'login',
 			'Logout'=>'logout'
