@@ -134,7 +134,7 @@ CREATE  TABLE IF NOT EXISTS `carrilana`.`piloto` (
   `id` INT(11) NOT NULL ,
   `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
   `nfederado` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
-  `foto` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
+  `foto` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
   `equipo_id` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_piloto_equipo1` (`equipo_id` ASC) ,
@@ -157,7 +157,152 @@ CREATE  TABLE IF NOT EXISTS `carrilana`.`usuario` (
   `password` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
   `email` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
   `nivel` INT(11) NOT NULL ,
+  `foto` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`foto`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`foto` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `archivo` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`video`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`video` (
+  `id` INT NOT NULL ,
+  `archivo` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`foto_has_carrera`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`foto_has_carrera` (
+  `foto_id` INT(11) NOT NULL ,
+  `carrera_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`foto_id`, `carrera_id`) ,
+  INDEX `fk_foto_has_carrera_carrera1` (`carrera_id` ASC) ,
+  INDEX `fk_foto_has_carrera_foto1` (`foto_id` ASC) ,
+  CONSTRAINT `fk_foto_has_carrera_foto1`
+    FOREIGN KEY (`foto_id` )
+    REFERENCES `carrilana`.`foto` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_foto_has_carrera_carrera1`
+    FOREIGN KEY (`carrera_id` )
+    REFERENCES `carrilana`.`carrera` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`video_has_carrera`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`video_has_carrera` (
+  `video_id` INT NOT NULL ,
+  `carrera_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`video_id`, `carrera_id`) ,
+  INDEX `fk_video_has_carrera_carrera1` (`carrera_id` ASC) ,
+  INDEX `fk_video_has_carrera_video1` (`video_id` ASC) ,
+  CONSTRAINT `fk_video_has_carrera_video1`
+    FOREIGN KEY (`video_id` )
+    REFERENCES `carrilana`.`video` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_video_has_carrera_carrera1`
+    FOREIGN KEY (`carrera_id` )
+    REFERENCES `carrilana`.`carrera` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`foto_has_piloto`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`foto_has_piloto` (
+  `foto_id` INT(11) NOT NULL ,
+  `piloto_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`foto_id`, `piloto_id`) ,
+  INDEX `fk_foto_has_piloto_piloto1` (`piloto_id` ASC) ,
+  INDEX `fk_foto_has_piloto_foto1` (`foto_id` ASC) ,
+  CONSTRAINT `fk_foto_has_piloto_foto1`
+    FOREIGN KEY (`foto_id` )
+    REFERENCES `carrilana`.`foto` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_foto_has_piloto_piloto1`
+    FOREIGN KEY (`piloto_id` )
+    REFERENCES `carrilana`.`piloto` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`video_has_piloto`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`video_has_piloto` (
+  `video_id` INT NOT NULL ,
+  `piloto_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`video_id`, `piloto_id`) ,
+  INDEX `fk_video_has_piloto_piloto1` (`piloto_id` ASC) ,
+  INDEX `fk_video_has_piloto_video1` (`video_id` ASC) ,
+  CONSTRAINT `fk_video_has_piloto_video1`
+    FOREIGN KEY (`video_id` )
+    REFERENCES `carrilana`.`video` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_video_has_piloto_piloto1`
+    FOREIGN KEY (`piloto_id` )
+    REFERENCES `carrilana`.`piloto` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`foto_has_noticia`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`foto_has_noticia` (
+  `foto_id` INT(11) NOT NULL ,
+  `noticia_id` INT(11) NOT NULL ,
+  PRIMARY KEY (`foto_id`, `noticia_id`) ,
+  INDEX `fk_foto_has_noticia_noticia1` (`noticia_id` ASC) ,
+  INDEX `fk_foto_has_noticia_foto1` (`foto_id` ASC) ,
+  CONSTRAINT `fk_foto_has_noticia_foto1`
+    FOREIGN KEY (`foto_id` )
+    REFERENCES `carrilana`.`foto` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_foto_has_noticia_noticia1`
+    FOREIGN KEY (`noticia_id` )
+    REFERENCES `carrilana`.`noticia` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_spanish_ci;
