@@ -309,6 +309,52 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
+-- Table `carrilana`.`compraVenta`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`compraventa` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `precio` DECIMAL(2,0) NOT NULL ,
+  `categoria` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
+  `descripcion` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
+  `foto` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `usuario_id` INT(11) NOT NULL ,
+  `fecha` DATE NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_compraVenta_usuario1` (`usuario_id` ASC) ,
+  CONSTRAINT `fk_compraVenta_usuario1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `carrilana`.`usuario` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `carrilana`.`compraventa`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `carrilana`.`compraventa` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `precio` DECIMAL(2,0) NOT NULL ,
+  `categoria` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
+  `descripcion` TEXT CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL DEFAULT NULL ,
+  `foto` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NOT NULL ,
+  `usuario_id` INT(11) NOT NULL ,
+  `fecha` DATE NOT NULL ,
+  PRIMARY KEY (`id`) ,
+  INDEX `fk_compraVenta_usuario1` (`usuario_id` ASC) ,
+  CONSTRAINT `fk_compraVenta_usuario1`
+    FOREIGN KEY (`usuario_id` )
+    REFERENCES `carrilana`.`usuario` (`id` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_spanish_ci;
+
+
+-- -----------------------------------------------------
 -- Placeholder table for view `carrilana`.`noticiaconcarrera`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `carrilana`.`noticiaconcarrera` (`id` INT, `titular` INT, `texto` INT, `fecha` INT, `nombre` INT, `circuito` INT, `distancia` INT);
