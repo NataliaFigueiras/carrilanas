@@ -3,14 +3,16 @@ require_once(LIB_DIR .'Table.php');
 class Usuario extends Table{
 	function __construct() {
 		$this->table = 'usuario';
-		$this->formTemplate = 'usuarioForm.tpl';
-		$this->listTemplate = 'usuarioList.tpl';
+		$this->formTemplate = 'usuarioForm2.tpl';
+		$this->listTemplate = 'usuarioList2.tpl';
 		$this->fields= array(
 				'nombre', 
 				'password',
-				'nivel' 
+				'email',
+				'nivel',
+				'foto'
 				);
-		$this->level = 10;
+		$this->level = 0;
 		parent::__construct();
 	}
 
@@ -24,6 +26,14 @@ class Usuario extends Table{
 
 		if(strlen($formvars['password']) == 0) {
 			$this->error = 'password_empty';
+			return false; 
+		}
+		if(strlen($formvars['email']) == 0) {
+			$this->error = 'email_empty';
+			return false; 
+		}
+		if(!strpos($formvars['email'], "@")) {
+			$this->error = 'email_incorrect';
 			return false; 
 		}
 

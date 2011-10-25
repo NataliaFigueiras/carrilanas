@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2011-09-27 12:55:27
+<?php /* Smarty version Smarty-3.0.7, created on 2011-10-21 10:19:46
          compiled from "templates\facturaConAlumnoList.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:103294e92b8b632aed7-57149757%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'b1e7d948b27362300d4c8acd3319dec9d37e03d9' => 
     array (
       0 => 'templates\\facturaConAlumnoList.tpl',
-      1 => 1318160152,
+      1 => 1318838436,
       2 => 'file',
     ),
   ),

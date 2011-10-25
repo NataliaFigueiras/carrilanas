@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2011-09-30 13:53:25
+<?php /* Smarty version Smarty-3.0.7, created on 2011-10-21 10:44:23
          compiled from "templates\noticiaConCarreraList.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:264124e85adb5dd6a98-73462467%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_smarty_tpl->decodeProperties(array (
     'a9229dc67a37e5c7e1f971d75668cefc107f6be2' => 
     array (
       0 => 'templates\\noticiaConCarreraList.tpl',
-      1 => 1317383600,
+      1 => 1318840042,
       2 => 'file',
     ),
   ),

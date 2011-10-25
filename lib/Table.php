@@ -2,18 +2,23 @@
 class Table{
 	var $pdo = null;
 	var $tpl = null;
-	var $error = null;
+	var $errors = null;
 	var $fromRec = 0;
 	var $recsByPage = 5;
 	var $formTemplate = '';
 	var $listTemplate = '';
 	var $templateData = array();
 	var $table = '';
+	var $listTable= '';
 	var $id = -1;
 	var $masterId = -1;
 	var $action = '';
 	var $fields = array();
 	var $level= 0;
+	var $orderField= 'id';
+	var $valueSearch= '';
+	var $detailView = '';
+	var $masterView='';
 
 	function __construct() {
 		global $dbtype;
@@ -27,9 +32,36 @@ class Table{
 			print "Error de conexion!: " . $e->getMessage();
 			die();
 		}	
+		if($this->listTable == ''){
+			$this->listTable = $this->table;
+		}
+		if($this->formTemplate== ''){
+			$this->formTemplate= 'basicForm.tpl'; 
+		}
+		if($this->listTemplate== ''){
+			$this->listTemplate= 'basicList.tpl'; 
+		}
 		if(!isset($_SESSION)){
 			session_start();
 		}
+		$_SESSION['fromRec'] = 0;
+	}
+	function getTable(){
+		return '{
+			"add"      : "true",
+			"edit"     : "true",
+			"delete"   : "true",
+			"colModel" : [
+				{"display": "Id",       "name" : "id",       "width" : 40  }
+			]
+		}';
+	}
+	function getForm(){
+		return '{
+			"colModel" : [
+				{"display": "Id",       "name" : "id",       "width" : 40  },
+			]
+		}';
 	}
 	function getLevel(){
 		return $this->level;
@@ -58,6 +90,11 @@ class Table{
 			$this->action= $_REQUEST['action']; 
 		}
 		switch($this->action) {
+		case 'orderBy':
+			$this->orderField=$_REQUEST['orderField']; 
+			$this->valueSearch=$_REQUEST['valueSearch']; 
+			$this->displayList($this->getRecords());        
+			break;
 		case 'goFirst':
 			$this->goFirst();
 			$this->displayList($this->getRecords());        
@@ -169,19 +206,24 @@ class Table{
 			$this->tpl->assign('db_action','update');
 		}
 
-		$this->tpl->assign('error', $this->error);
+		$this->tpl->assign('errors', $this->errors);
 		if(isset($this->templateData[$this->formTemplate])){
-			$this->tpl->assign('data', $this->templateData[$this->formTemplate]);
+		//	$this->tpl->assign('data', $this->templateData[$this->formTemplate]);
 		}
+		$this->tpl->assign('data', json_decode(($this->getForm())));
 		$this->tpl->display($this->formTemplate);
 	}
 	function displayList($records = array()) {
 		$this->tpl->assign('records', $records);
 		$this->tpl->assign('masterId', $this->masterId);
+		$this->tpl->assign('detailView', $this->detailView);
+		$this->tpl->assign('masterView', $this->masterView);
 		$this->tpl->assign('id',$this->id);
+		$this->tpl->assign('orderField',$this->orderField);
 		if(isset($this->templateData[$this->listTemplate])){
-			$this->tpl->assign('data', $this->templateData[$this->listTemplate]);
+			//$this->tpl->assign('data', $this->templateData[$this->listTemplate]);
 		}
+		$this->tpl->assign('data', json_decode(($this->getTable())));
 		$this->tpl->display($this->listTemplate);        
 	}
 	function delete(){
@@ -200,7 +242,7 @@ class Table{
 		}	
 		return true;
 	}
-	function updateEntry($formvars) {        
+	function updateEntryOld($formvars) {        
 		try {
 
 			$q = "update " . $this->table . " set ";
@@ -216,6 +258,39 @@ class Table{
 					$v[] = implode(",", $formvars[$field]);
 				}else{
 					$v[] = $formvars[$field];
+				}
+			}
+			$v[] = $this->id;
+			$rh->execute($v);
+		} catch (PDOException $e) {
+			print "Error!: " . $e->getMessage();
+			return false;
+		}	
+		return true;
+	}
+	function updateEntry($formvars) {        
+		try {
+
+			$q = "update " . $this->table . " set ";
+			foreach($this->fields as $field){
+				$q.= $field . ' =  ?,';
+			}
+			$q=substr($q,0, -1);//quitamos la última coma
+			$q .= ' where id = ?';
+			$rh = $this->pdo->prepare($q);
+			$v = array();
+			foreach($this->fields as $field){
+				if(!isset($formvars[$field])){
+					$v[] = $_FILES[$field]['name'];
+					$uploaddir = getcwd() ."/images/";
+					$uploadfile = $uploaddir . basename($_FILES[$field]['name']);
+					move_uploaded_file($_FILES[$field]['tmp_name'], $uploadfile); 
+				}else{
+					if(is_array($formvars[$field])){
+						$v[] = implode(",", $formvars[$field]);
+					}else{
+						$v[] = $formvars[$field];
+					}
 				}
 			}
 			$v[] = $this->id;
@@ -242,14 +317,56 @@ class Table{
 			$rh = $this->pdo->prepare($q);
 			$v = array();
 			foreach($this->fields as $field){
+				if(!isset($formvars[$field])){
+					$v[] = $_FILES[$field]['name'];
+					$uploaddir = getcwd() ."/images/";
+					$uploadfile = $uploaddir . basename($_FILES[$field]['name']);
+
+					if (move_uploaded_file($_FILES[$field]['tmp_name'], $uploadfile)) {
+					} else {
+						echo "Error subiendo el fichero";
+					}
+				}else{
+					if(is_array($formvars[$field])){
+						$v[] = implode(",", $formvars[$field]);
+					}else{
+						$v[] = $formvars[$field];
+					}
+				}
+			}
+			$rh->execute($v);
+
+
+		} catch (PDOException $e) {
+			print "Error!: " . $e->getMessage();
+			return false;
+		}	
+		return true;
+	}
+	function addEntryOld($formvars) {        
+		try {
+			$q = "insert into " . $this->table . " (";
+			foreach($this->fields as $field){
+				$q.= $field . ',';
+			}
+			$q=substr($q,0, -1);//quitamos la última coma
+			$q .= ') values (';
+			foreach($this->fields as $field){
+				$q.= '?,';
+			}
+			$q=substr($q,0, -1);//quitamos la última coma
+			$q .= ')';
+			$rh = $this->pdo->prepare($q);
+			$v = array();
+			print_r($formvars);
+			print_r($_FILES);
+			foreach($this->fields as $field){
 				if(is_array($formvars[$field])){
 					$v[] = implode(",", $formvars[$field]);
 				}else{
 					$v[] = $formvars[$field];
 				}
 			}
-			echo "Sentencia:". $q;
-			var_dump($v);
 			$rh->execute($v);
 		} catch (PDOException $e) {
 			print "Error!: " . $e->getMessage();
@@ -263,14 +380,16 @@ class Table{
 				$this->fromRec =  $_SESSION['fromRec'];
 			}
 			try {
-				$sql = 'select * from ' . $this->table .  ' LIMIT ' 
-					. $this->fromRec 
-					. ','
-					.$this->recsByPage;
-				$rows = array();
-				foreach ($this->pdo->query($sql) as $row) {
-					$rows[] = $row;
+				$text= 'SELECT * FROM ' . $this->listTable;
+				if($this->valueSearch != ''){
+					$text .= " WHERE ". $this->orderField . " >= '" . $this->valueSearch . "'";
 				}
+				$text.= ' ORDER BY ' . $this->orderField;
+				$text.= ' LIMIT ' . $this->fromRec . ',' .$this->recsByPage;
+				$sql = $this->pdo->prepare($text);
+				$sql->execute();
+				$rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+
 			} catch (PDOException $e) {
 				print "Error!: " . $e->getMessage();
 				return false;
@@ -278,7 +397,7 @@ class Table{
 			return $rows;   
 		}else{
 			try {
-				$rh = $this->pdo->prepare("select * from " . $this->table . " where id = ?");
+				$rh = $this->pdo->prepare("select * from " . $this->listTable . " where id = ?");
 				$rh->execute(array($id));
 				$row = $rh->fetch(PDO::FETCH_BOTH);
 			} catch (PDOException $e) {

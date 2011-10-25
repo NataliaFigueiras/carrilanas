@@ -1,17 +1,17 @@
-<?php /* Smarty version Smarty-3.0.7, created on 2011-10-21 10:44:22
-         compiled from "templates\carreraList.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:290384e8582fe909d05-64029451%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /* Smarty version Smarty-3.0.7, created on 2011-10-18 10:00:22
+         compiled from "templates\usuarioList2.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:309224e9d3216d22ba9-91386190%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
-    '190e3bed5ca8bc2681feec7ba56c61479a4e1527' => 
+    '3b5476f940f1bce310551fa1b83cafce11af8b4b' => 
     array (
-      0 => 'templates\\carreraList.tpl',
-      1 => 1318840042,
+      0 => 'templates\\usuarioList2.tpl',
+      1 => 1318924813,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '290384e8582fe909d05-64029451',
+  'nocache_hash' => '309224e9d3216d22ba9-91386190',
   'function' => 
   array (
   ),
@@ -29,36 +29,22 @@ if (!is_callable('smarty_modifier_escape')) include 'smarty/plugins\modifier.esc
 ?action=close&view=menu"  >
 	<button>&uarr;</button>
 </a>
-</td>
 <table border="0" >
-	<th bgcolor="#d1d1d1">&nbsp;</th>
 	<th bgcolor="#d1d1d1">id     </th>
-	<th bgcolor="#d1d1d1">Fecha </th>
 	<th bgcolor="#d1d1d1">Nombre</th>
-	<th bgcolor="#d1d1d1">Circuito </th>
-	<th bgcolor="#d1d1d1">Distancia</th>
-	<th bgcolor="#d1d1d1">&nbsp;</th>
-	<th bgcolor="#d1d1d1">&nbsp;</th>
+	<th bgcolor="#d1d1d1">Password</th>
+	<th bgcolor="#d1d1d1">Email</th>
+	<th bgcolor="#d1d1d1">Foto</th>
+	<th bgcolor="#d1d1d1">Nivel</th>
 	<?php  $_smarty_tpl->tpl_vars["record"] = new Smarty_Variable;
  $_from = $_smarty_tpl->getVariable('records')->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
 if ($_smarty_tpl->_count($_from) > 0){
     foreach ($_from as $_smarty_tpl->tpl_vars["record"]->key => $_smarty_tpl->tpl_vars["record"]->value){
 ?>
-    <tr bgcolor="<?php echo smarty_function_cycle(array('values'=>"#dedede,#eeeeee",'advance'=>true),$_smarty_tpl);?>
+    <tr bgcolor="<?php echo smarty_function_cycle(array('values'=>"#dedede,#eeeeee",'advance'=>false),$_smarty_tpl);?>
 ">
-        <td><a href="<?php echo $_smarty_tpl->getVariable('SCRIPT_NAME')->value;?>
-?action=open&view=noticia&id=<?php echo $_smarty_tpl->getVariable('record')->value['id'];?>
-&masterId=<?php echo $_smarty_tpl->getVariable('record')->value['id'];?>
-"  >
-			<button>&darr;</button>
-			</a>
-		</td>
 		<td>
 			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['id']);?>
-
-		</td>        
-		<td>
-			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['fecha']);?>
 
 		</td>        
 		<td>
@@ -66,22 +52,30 @@ if ($_smarty_tpl->_count($_from) > 0){
 
 		</td>        
 		<td>
-			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['circuito']);?>
+			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['password']);?>
 
-		</td>        
+		</td>
 		<td>
-			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['distancia']);?>
+			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['email']);?>
+
+		</td>  
+		<td>
+			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['foto']);?>
+
+		</td>     
+		<td>
+			<?php echo smarty_modifier_escape($_smarty_tpl->getVariable('record')->value['nivel']);?>
 
 		</td>        
-		<td><a href="<?php echo $_smarty_tpl->getVariable('SCRIPT_NAME')->value;?>
+        <td><a href="<?php echo $_smarty_tpl->getVariable('SCRIPT_NAME')->value;?>
 ?action=edit&id=<?php echo $_smarty_tpl->getVariable('record')->value['id'];?>
 "  >
-			<button>.</button></a>
+			<button>EDITAR</button></a>
 		</td>
         <td><a href="<?php echo $_smarty_tpl->getVariable('SCRIPT_NAME')->value;?>
 ?action=delete&id=<?php echo $_smarty_tpl->getVariable('record')->value['id'];?>
 ">
-			<button>X</button></a>
+			<button>BORRAR</button></a>
 		</td>
 	</tr>
     <?php }} else { ?>
@@ -118,8 +112,8 @@ if ($_smarty_tpl->_count($_from) > 0){
 		</td>
 		<td>
 			<a href="<?php echo $_smarty_tpl->getVariable('SCRIPT_NAME')->value;?>
-?action=add&view=carrera">
-				<button>+</button></a>
+?action=add&view=usuario">
+				<button>AÑADIR USUARIO</button></a>
 			</a>
 		</td>
 	</tr>

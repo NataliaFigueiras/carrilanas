@@ -4,6 +4,7 @@ require(SRC_DIR . 'Carrera.php');
 require(SRC_DIR . 'Noticia.php');
 require(SRC_DIR . 'FacturaConAlumno.php');
 require(SRC_DIR . 'NoticiaConCarrera.php');
+require(SRC_DIR . 'CompraVenta.php');
 require(SRC_DIR . 'Usuario.php');
 require(SRC_DIR . 'Logger.php');
 require(SRC_DIR . 'Inicio.php');
@@ -13,8 +14,10 @@ class Controller extends BasicController{
 		parent::__construct();
 		$this->assign('opciones', array(
 			'Inicio'=>'inicio',
+			'Usuarios'=>'usuario',
 			'Carrera'=>'carrera',
 			'Noticias'=>'noticiaConCarrera',
+			'CompraVenta'=>'CompraVenta',
 			'Alumnos'=>'alumno',
 			'Facturas'=>'facturaConAlumno',
 			'Usuarios'=>'usuario',
@@ -42,12 +45,10 @@ class Controller extends BasicController{
 		case 'noticiaConCarrera':
 			$object = new NoticiaConCarrera; 
 			break;
-		case 'alumno':
-			$object = new Alumno;
-			break;		
-		case 'factura':
-			$object = new Factura; 
+		case 'CompraVenta':
+			$object = new CompraVenta; 
 			break;
+			
 		case 'facturaConAlumno':
 			$object = new FacturaConAlumno; 
 			break;
